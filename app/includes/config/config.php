@@ -9,6 +9,6 @@
  /****************************
   * Encryption data
   ****************************/
- const SECRET_KEY = '8b3e3d0e67745f713bca9bce3e44411108f922cf5e58efb60866d4d2678042e0'; //Key used in hmac encryption
+ const SECRET_KEY = '9582faf5c174496b8ae44193902b1a873b2000a880e4ff653e93eb499389bc00'; //Key used in hmac encryption
 
 
