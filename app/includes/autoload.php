@@ -1,11 +1,11 @@
 <?php
-require_once __DIR__.'/../config/config.php';
+require_once __DIR__.'/config/config.php';
 spl_autoload_register(function ($className) {
     $classMap = array(
-        'App\\Controllers\\' => 'controllers/',
-        'App\\Models\\' => 'models/',
-        'App\\Routing\\' => 'routing/',
-        'App\\Utils\\' => 'utils/'
+        'App\\Controllers\\' => 'Controllers/',
+        'App\\Models\\' => 'Models/',
+        'App\\Routing\\' => 'Routing/',
+        'App\\Utils\\' => 'Utils/'
     );
 
     // Cerca la classe nel classMap
