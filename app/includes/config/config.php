@@ -1,12 +1,18 @@
 <?php
 
 /*****************************
- * General const
+ * General & debug consts
  *****************************/
  const DEV_MODE = true; //Define if in development
- const LOG = false;
+ const LOGS = false; //Define if using logs
+ const ROUTER_LOGS = true; //Enable router logs
+ const REST_CONTR_LOGS = true; //Enable REST controller logs
  const APP_PATH = __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR; //DO NOT CHANGE THIS SETTING!
- const APP_URL = 'lsysprojects.altervista.org';
+
+/*****************************
+ * APP Configuration
+ *****************************/
+ const APP_URL = 'localhost'; //URL of your APP
  
  /****************************
   * Encryption data
