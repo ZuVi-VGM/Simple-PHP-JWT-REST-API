@@ -20,8 +20,6 @@ class Router {
             $this->routes[$method][$path] = $action;
         else
             throw new \Exception("Method not supported. Must be one of GET, POST, PUT or DELETE");
-
-        var_dump($this->routes);
     }
 
     private function checkMethod($method){
