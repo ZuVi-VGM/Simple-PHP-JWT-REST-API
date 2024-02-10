@@ -9,44 +9,42 @@ class RestController {
 
     public function __construct() {
         $this->method = $_SERVER['REQUEST_METHOD'];
-        $this->endpoint = $_SERVER['REQUEST_URI'];
-        $this->params = $_REQUEST;
+        $this->endpoint = $_SERVER['REQUEST_URI']; //maybe for other checks...
+
+        $this->prepareParams();
+
+        if(DEV_MODE && LOGS && REST_CONTR_LOGS)
+            var_dump($this->params);
     }
 
-    public function handleRequest() {
+    private function prepareParams() : void {
         switch ($this->method) {
-            case 'GET':
-                $this->handleGetRequest();
-                break;
-            case 'POST':
-                $this->handlePostRequest();
-                break;
             case 'PUT':
-                $this->handlePutRequest();
-                break;
-            case 'DELETE':
-                $this->handleDeleteRequest();
-                break;
+                $putData = file_get_contents('php://input');
+                parse_str($putData, $putParams);
+                $_REQUEST = array_merge($_REQUEST, $putParams);
+            default:
+                $this->params = $_REQUEST;
         }
     }
 
-    public function test(){
-        return ['message' => 'Hello world!'];
+    public function test() : array {
+        $data = isset($_REQUEST['testa']) ? $_REQUEST['testa'] : 1;
+        return ['message' => 'GET!', 'data' => $data];
     }
 
-    private function handleGetRequest() {
-        // Implementa la logica per gestire le richieste GET
+    public function testp() : array {
+        $data = isset($_REQUEST['testa']) ? $_REQUEST['testa'] : 1;
+        return ['message' => 'POST!', 'data' => $data];
     }
 
-    private function handlePostRequest() {
-        // Implementa la logica per gestire le richieste POST
+    public function testput() : array{
+        $data = isset($_REQUEST['testa']) ? $_REQUEST['testa'] : 1;
+        return ['message' => 'PUT!', 'data' => $data];
     }
 
-    private function handlePutRequest() {
-        // Implementa la logica per gestire le richieste PUT
-    }
-
-    private function handleDeleteRequest() {
-        // Implementa la logica per gestire le richieste DELETE
+    public function testdel() : array{
+        $data = isset($_REQUEST['testa']) ? $_REQUEST['testa'] : 1;
+        return ['message' => 'DELETE!', 'data' => $data];
     }
 }
