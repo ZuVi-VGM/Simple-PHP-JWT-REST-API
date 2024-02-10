@@ -14,19 +14,43 @@ class Router {
         $this->apiResponse = new ApiResponse;
     }
 
-    public function addRoute(string $method, string $path, string $action) {
+    public function addRoute(string $method, string $path, string $action) : void{
         $method = strtoupper($method);
         if($this->checkMethod($method))
             $this->routes[$method][$path] = $action;
         else
             throw new \Exception("Method not supported. Must be one of GET, POST, PUT or DELETE");
+
+        if(DEV_MODE && LOG)
+            var_dump($this->routes);
     }
 
-    private function checkMethod($method){
+    private function checkMethod(string $method) : bool{
         return array_key_exists($method, $this->routes);
     }
 
-    public function routeRequest($method, $path) {
+    private function checkAllowedRequest() : bool{
+        if (!isset($_SERVER['HTTP_ORIGIN']) || empty($_SERVER['HTTP_ORIGIN'])) {
+            http_response_code(403);
+            return false;
+        }
+
+        $allowedOrigin = (isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS'])) ? 'https://' . APP_URL : 'http://' . APP_URL;
+        if ($_SERVER['HTTP_ORIGIN'] !== $allowedOrigin) {
+            http_response_code(403);
+            return false;
+        }
+
+        header('Access-Control-Allow-Origin: ' . $allowedOrigin);
+        return true;
+    }
+
+    public function routeRequest(string $method, string $path) :void{
+        if(!DEV_MODE)
+            if(!$this->checkAllowedRequest())
+                return;
+        
+
         if (isset($this->routes[$method][$path])) {
             $action = $this->routes[$method][$path];
             header('Content-Type: application/json');
