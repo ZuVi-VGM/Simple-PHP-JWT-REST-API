@@ -36,7 +36,7 @@ class Router {
             $this->apiResponse->prepareResponse(200, 'OK', $resdata);
             echo $this->apiResponse->toJSON();
         } else {
-            // Gestione dell'errore 404
+            // Handle 404 error
             http_response_code(404);
             header('Content-Type: application/json');
             $this->apiResponse->prepareResponse(404, 'Not Found', ['error' => 404, 'message' => '404 Not Found']);

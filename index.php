@@ -7,8 +7,6 @@ use App\Routing\Router;
 $restController = new RestController();
 $router = new Router($restController);
 
-$router->addRoute('GET','/getdata', 'testMethod');
-
 $method = $_SERVER['REQUEST_METHOD'];
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 

@@ -39,6 +39,10 @@ class RestController {
         //echo $response->toJson();
     }
 
+    public function test(){
+        return ['message' => 'Hello world!'];
+    }
+
     private function handleGetRequest() {
         // Implementa la logica per gestire le richieste GET
     }
