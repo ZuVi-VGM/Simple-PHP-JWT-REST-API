@@ -20,9 +20,6 @@ class Router {
             $this->routes[$method][$path] = $action;
         else
             throw new \Exception("Method not supported. Must be one of GET, POST, PUT or DELETE");
-
-        if(DEV_MODE && LOG)
-            var_dump($this->routes);
     }
 
     private function checkMethod(string $method) : bool{
@@ -49,8 +46,10 @@ class Router {
         if(!DEV_MODE)
             if(!$this->checkAllowedRequest())
                 return;
-        
 
+        if(DEV_MODE && LOGS && ROUTER_LOGS)
+            var_dump($this->routes);
+        
         if (isset($this->routes[$method][$path])) {
             $action = $this->routes[$method][$path];
             header('Content-Type: application/json');
