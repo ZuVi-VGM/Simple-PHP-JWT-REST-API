@@ -4,7 +4,9 @@
  * General const
  *****************************/
  const DEV_MODE = true; //Define if in development
+ const LOG = false;
  const APP_PATH = __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR; //DO NOT CHANGE THIS SETTING!
+ const APP_URL = 'lsysprojects.altervista.org';
  
  /****************************
   * Encryption data
