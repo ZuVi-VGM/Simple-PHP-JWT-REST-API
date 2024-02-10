@@ -27,16 +27,7 @@ class RestController {
             case 'DELETE':
                 $this->handleDeleteRequest();
                 break;
-            default:
-                $this->respondNotFound();
-                break;
         }
-
-        // Creazione di un'istanza di ApiResponse
-        //$response = new ApiResponse(200, 'Success', $data);
-
-        // Invio della risposta JSON al client
-        //echo $response->toJson();
     }
 
     public function test(){
@@ -57,21 +48,5 @@ class RestController {
 
     private function handleDeleteRequest() {
         // Implementa la logica per gestire le richieste DELETE
-    }
-
-    private function respondJson($data) {
-        // Imposta l'header Content-Type per indicare che la risposta è in formato JSON
-        header('Content-Type: application/json');
-
-        // Codifica i dati della risposta in formato JSON
-        $jsonResponse = json_encode($data);
-
-        // Invia la risposta JSON al client
-        echo $jsonResponse;
-    }
-
-    private function respondNotFound() {
-        http_response_code(404);
-        echo json_encode(array('error' => 'Not Found'));
     }
 }
