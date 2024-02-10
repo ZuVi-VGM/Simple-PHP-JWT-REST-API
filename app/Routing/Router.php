@@ -5,9 +5,9 @@ use App\Models\ApiResponse;
 use App\Controllers\RestController;
 
 class Router {
-    private $routes = ['GET' => [], 'POST' => [], 'PUT' => [], 'DELETE' => []];
-    private $restController;
-    private $apiResponse;
+    private array $routes = ['GET' => [], 'POST' => [], 'PUT' => [], 'DELETE' => []];
+    private restController $restController;
+    private apiResponse $apiResponse;
 
     public function __construct(RestController $rest_controller) {
         $this->restController = $rest_controller;

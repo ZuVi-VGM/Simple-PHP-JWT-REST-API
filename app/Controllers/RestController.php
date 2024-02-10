@@ -3,9 +3,9 @@
 namespace App\Controllers;
 
 class RestController {
-    private $method;
-    private $endpoint;
-    private $params;
+    private string $method;
+    private string $endpoint;
+    private array $params;
 
     public function __construct() {
         $this->method = $_SERVER['REQUEST_METHOD'];

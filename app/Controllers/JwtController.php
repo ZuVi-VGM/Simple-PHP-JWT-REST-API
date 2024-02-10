@@ -2,7 +2,7 @@
 namespace App\Controllers;
 
 class JwtController {
-    private $key;
+    private string $key;
 
     public function __construct($key)
     {
@@ -10,7 +10,7 @@ class JwtController {
     }
 
     // Metodo per creare un token JWT
-    public function createToken($payload)
+    public function createToken(array $payload) : string
     {
         $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
         $payload = json_encode($payload);
@@ -32,7 +32,7 @@ class JwtController {
     }
 
     // Metodo per validare e decodificare un token JWT
-    public function validateToken($jwt)
+    public function validateToken(string $jwt) : bool
     {
         $tokenParts = explode('.', $jwt);
         $header = base64_decode($tokenParts[0]);
@@ -49,7 +49,7 @@ class JwtController {
         return ($base64UrlValidSignature === $signature);
     }
 
-    public function decryptPayload($jwt)
+    public function decryptPayload(string $jwt) : array
     {
         $tokenParts = explode('.', $jwt);
         $encryptedPayload = base64_decode($tokenParts[1]);
