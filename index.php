@@ -11,10 +11,11 @@ $method = $_SERVER['REQUEST_METHOD'];
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 // Define routes
-$router->addRoute('GET', '/Simple-PHP-JWT-REST-API/test', 'test');
+$router->addRoute('GET', '/Simple-PHP-JWT-REST-API/test/${data}/${test}', 'test');
+$router->addRoute('GET', '/Simple-PHP-JWT-REST-API/test/with/more/${data}', 'test1');
 $router->addRoute('POST', '/Simple-PHP-JWT-REST-API/tata', 'testp');
 $router->addRoute('Put', '/Simple-PHP-JWT-REST-API/tata', 'testput');
-$router->addRoute('DELETE', '/Simple-PHP-JWT-REST-API/tata', 'testdel');
+$router->addRoute('DELETE', '/Simple-PHP-JWT-REST-API/tata/${id}/${value}', 'testdel');
 
 // Send request to router
 $router->routeRequest($method, $path);
