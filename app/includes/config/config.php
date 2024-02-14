@@ -13,6 +13,7 @@
  * APP Configuration
  *****************************/
  const APP_URL = 'localhost'; //URL of your APP
+ const MAX_NID_LEVELS = 10; //SET ROUTER MAX NIDIFICATION LEVEL
  
  /****************************
   * Encryption data
