@@ -13,8 +13,8 @@ class RestController {
 
         $this->prepareParams();
 
-        if(DEV_MODE && LOGS && REST_CONTR_LOGS)
-            var_dump($this->params);
+        // if(DEV_MODE && LOGS && REST_CONTR_LOGS)
+        //     var_dump($this->params);
     }
 
     private function prepareParams() : void {
@@ -28,23 +28,25 @@ class RestController {
         }
     }
 
+    public function updateParams(array $data) : void {
+        $this->params = array_merge($this->params, $data);
+        if(DEV_MODE && LOGS && REST_CONTR_LOGS)
+            var_dump($this->params);
+    }
+
     public function test() : array {
-        $data = isset($_REQUEST['testa']) ? $_REQUEST['testa'] : 1;
-        return ['message' => 'GET!', 'data' => $data];
+        return ['message' => 'GET!', 'params' => $this->params];
     }
 
     public function testp() : array {
-        $data = isset($_REQUEST['testa']) ? $_REQUEST['testa'] : 1;
-        return ['message' => 'POST!', 'data' => $data];
+        return ['message' => 'POST!', 'params' => $this->params];
     }
 
     public function testput() : array{
-        $data = isset($_REQUEST['testa']) ? $_REQUEST['testa'] : 1;
-        return ['message' => 'PUT!', 'data' => $data];
+        return ['message' => 'PUT!', 'params' => $this->params];
     }
 
     public function testdel() : array{
-        $data = isset($_REQUEST['testa']) ? $_REQUEST['testa'] : 1;
-        return ['message' => 'DELETE!', 'data' => $data];
+        return ['message' => 'DELETE!', 'params' => $this->params];
     }
 }
