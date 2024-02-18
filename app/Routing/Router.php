@@ -128,9 +128,18 @@ class Router {
         $path = rtrim($path, '/'); //prepare path for the research
         if ($action = $this->getRoute($method, $path)) {
             header('Content-Type: application/json');
-            $resdata = call_user_func_array([$this->restController, $action], []);
-            $this->apiResponse->prepareResponse(200, 'OK', $resdata);
-            echo $this->apiResponse->toJSON();
+            
+            if(is_callable([$this->restController, $action]))
+            {
+                $resdata = call_user_func_array([$this->restController, $action], []);
+                $this->apiResponse->prepareResponse($resdata['code'], $resdata['message'], $resdata['data']);
+                http_response_code($resdata['code']);
+                echo $this->apiResponse->toJSON();
+            } else {
+                http_response_code(500);
+                $this->apiResponse->prepareResponse(500, 'Internal Error', ['error' => 500, 'message' => 'Controller not found.']);
+                echo $this->apiResponse->toJson();
+            }
         } else {
             // Handle 404 error
             http_response_code(404);
