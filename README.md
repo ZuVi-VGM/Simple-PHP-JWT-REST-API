@@ -3,7 +3,7 @@
 
 A simple PHP REST API created to handle JWT tokens' creation and validation.
 
-[![Status](https://img.shields.io/badge/Status-In_developement-yellow)](https://choosealicense.com/licenses/mit/)
+[![Status](https://img.shields.io/badge/Status-Released-blue)](https://choosealicense.com/licenses/mit/)
 ## Tech Stack
 
 PHP, REST API & JWT Tokens
