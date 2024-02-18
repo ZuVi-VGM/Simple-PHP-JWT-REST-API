@@ -1,16 +1,17 @@
 <?php
 
 namespace App\Controllers;
+use App\Controllers\JwtController;
 
 class RestController {
     private string $method;
-    private string $endpoint;
     private array $params;
+    private JwtController $jwt;
 
     public function __construct() {
         $this->method = $_SERVER['REQUEST_METHOD'];
-        $this->endpoint = $_SERVER['REQUEST_URI']; //maybe for other checks...
-
+        //$this->endpoint = $_SERVER['REQUEST_URI']; //maybe for other checks...
+        $this->jwt = new JwtController(SECRET_KEY);
         $this->prepareParams();
 
         // if(DEV_MODE && LOGS && REST_CONTR_LOGS)
@@ -34,19 +35,21 @@ class RestController {
             var_dump($this->params);
     }
 
-    public function test() : array {
-        return ['message' => 'GET!', 'params' => $this->params];
+    public function createToken() : array {
+        if(!isset($_POST['peer_id']) || !isset($_POST['salt']))
+            return ['code' => 422, 'message' => 'Missing Parameters', 'data' => ['error' => 422, 'message' => 'Missing Parameters.']];
+        
+        $token = $this->jwt->createToken($_POST);
+
+        return ['code' => 200, 'message' => 'OK', 'data' => ['token' => $token]];
     }
 
-    public function testp() : array {
-        return ['message' => 'POST!', 'params' => $this->params];
-    }
+    public function validateToken() : array {
+        if(!isset($this->params['token']))
+            return ['code' => 422, 'message' => 'Missing Parameters', 'data' => ['error' => 422, 'message' => 'Missing Parameters.']];
+        if($this->jwt->validateToken(urldecode($this->params['token'])))
+            return ['code' => 200, 'message' => 'OK', 'data' => ['payload' => $this->jwt->decryptPayload(urldecode($this->params['token']))]];
 
-    public function testput() : array{
-        return ['message' => 'PUT!', 'params' => $this->params];
-    }
-
-    public function testdel() : array{
-        return ['message' => 'DELETE!', 'params' => $this->params];
+        return ['code' => 200, 'message' => 'OK', 'data' => ['error' => 'Invalid Token']];
     }
 }
