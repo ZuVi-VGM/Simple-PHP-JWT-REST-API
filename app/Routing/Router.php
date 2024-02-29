@@ -71,6 +71,7 @@ class Router {
         }
 
         header('Access-Control-Allow-Origin: ' . $allowedOrigin);
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
         return true;
     }
 
@@ -119,12 +120,19 @@ class Router {
     }
 
     public function routeRequest(string $method, string $path) :void{
-        if(!DEV_MODE)
+        if(!DEV_MODE){
             if(!$this->checkAllowedRequest())
                 return;
+        } else {
+            if(isset($_SERVER['HTTP_ORIGIN'])){
+                header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+                header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+            }
+        }
+            
 
         $this->log('ROUTES:', $this->routes);
-        
+
         $path = rtrim($path, '/'); //prepare path for the research
         if ($action = $this->getRoute($method, $path)) {
             header('Content-Type: application/json');
