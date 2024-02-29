@@ -35,7 +35,7 @@ This API is used in the following project:
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `peer_id` | `string` | **Required**. Your Peer id |
-| `hmac_key` | `string` | **Required**. Your communication key |
+| `salt` | `string` | **Required**. Your salt for the HMAC generation |
 
 #### Get item
 
